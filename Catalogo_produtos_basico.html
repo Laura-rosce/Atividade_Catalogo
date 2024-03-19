@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="port-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo de Produtos Basic</title>
+</head>
+<body>
+    <script>
+        const produtos = [];
+        var resp;
+
+        function add (produtos){
+            const nome = prompt ("Nome do produto: ");
+            const preco = prompt ("Preço do produto: ");
+            const id = prompt ("Código do produto: ");
+            const descricao = prompt ("Descrição: ");
+            produtos.push ({nome,preco,id,descricao});
+        }
+
+        function research (produtos, busca){
+            produtos.forEach( item => {
+                    if (item.id.includes(busca)){
+                        alert (`Produto: ${item.nome}\nPreço: ${item.preco}\nDescrição: ${item.descricao}`);
+                    }
+                })
+        }
+
+        function update(produtos, atualizar){
+            produtos.forEach(item => {
+                if (item.id.includes(atualizar)){
+                    const newName = prompt ("Nome do produto: ");
+                    const newPreco = prompt ("Preço do produto: ");
+                    const newId = prompt ("Código do produto: ");
+                    const newDescric = prompt ("Descrição: ");
+
+                    item.nome = newName;
+                    item.preco = newPreco;
+                    item.id = newId;
+                    item.descricao = newDescric;
+
+                    return `Nome: ${item.nome}
+                            Preco: ${item.preco}
+                            Id: ${item.id}
+                            Descric: ${item.descricao}`
+
+                }
+            })
+        }
+
+        function exibir (produtos){
+            /*alert(`== Produtos ==\n ${JSON.stringify(produtos)}\n`);*/
+            
+            let mostra = "== Produtos == \n";
+                    for (let i = 0; i < produtos.length; i++) {
+                        mostra += `Produto: ${produtos[i].nome} - Preco: ${produtos[i].preco} - Id: ${produtos[i].id} - Descrição: ${produtos[i].descricao} \n`;
+                    }
+                        
+            return alert(mostra);
+        }
+
+        function remover (produtos, remove){
+            produtos.forEach(item => {
+                if (item.id.includes(remove)){
+                    const indice = produtos.indexOf(item);
+                    produtos.splice(indice,1); 
+
+                    return 'Item removido com sucesso!'
+
+                }
+            })
+        }
+
+
+        do{
+            resp=prompt ("=== Catálogo de Produtos ===\n\n1 - Adicionar\n2 - Buscar\n3 - Atualizar\n4 - Visualizar\n5 - Remover\n6 - Sair");
+
+            /*Função adicionar*/
+            if (resp == 1){  
+                add(produtos);
+            } 
+            /*Função busca*/
+            else if (resp == 2){
+                let busca = prompt ("Informe o código do produto: ") 
+                research(produtos,busca);
+            } 
+            /*Função atualiza*/
+            else if (resp == 3){ 
+                let atualizar = prompt ("Informe o código do produto que será atualizado: ")
+                alert(update(produtos, atualizar));
+            }
+            /*Função exibe*/
+            else if (resp == 4){ 
+                exibir(produtos);
+            }
+            /*Função remove*/
+            else if (resp == 5){
+                let remove = prompt ("Informe o código do produto que será removido: ");
+                alert(remover(produtos,remove));
+            }
+
+        } while (resp >= 1 && resp <=5)
+    </script>
+</body>
+</html>
